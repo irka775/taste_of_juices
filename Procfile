@@ -1,1 +1,1 @@
-web: gunicorn juices.wsgi
+web: gunicorn juices_project.wsgi
