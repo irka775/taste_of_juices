@@ -17,13 +17,12 @@ Including another URLconf
 
 from django.conf import settings
 from django.conf.urls.static import static
-from django.urls import path
 from django.contrib import admin
 from django.urls import path, include
-from juices_app import views as index_views
+from juices_app import views as home_view
 
 urlpatterns = [
-    path("", index_views.index, name="index"),
+    path("", home_view.home, name="home"),
     path("admin/", admin.site.urls),
 ]
 

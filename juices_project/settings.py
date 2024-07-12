@@ -38,6 +38,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
+FIXTURE_DIRS = [
+    os.path.join(BASE_DIR, "juices_app/fixtures"),
+]
+
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
