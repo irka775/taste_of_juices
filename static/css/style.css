@@ -16,7 +16,9 @@ body {
 .thin {
     font-weight: 300;
 }
-
+.nav-bg {
+    background-color: #9c8787;
+}
 .light-bg {
     background-color: #fff;
 }
@@ -26,7 +28,7 @@ body {
 }
 
 .main-bg {
-    background-color: #F9FAFC;
+    background-color: #98aacf;
 }
 
 .card {
@@ -159,3 +161,15 @@ body {
 .approval {
     color: rgb(222, 146, 168);
 }
+
+.nav-link.highlighted {
+    background-color: #FFD700;
+    color: #000;
+    font-weight: bold;
+    font-size: 1.5em;
+    border-radius: 25px;
+    padding: 5px;
+}
+
+
+

@@ -1,9 +1,9 @@
 {% load static %}
 {% url 'home' as home_url %}
+{% url 'about' as about_url %}
 
 <!DOCTYPE html>
 <html class="h-100" lang="en">
-
 <head>
   <title>Taste Of Juices</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -29,34 +29,30 @@
 
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-light bg-white">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="{% url 'home' %}">
+    <div class="container-fluid nav-bg">
+      <a class="navbar-brand " href="{{ home_url }}">
         <h1 class="brand">Taste of Ju<img src="{% static 'images/glass_of_juice.ico' %}" alt="Juice Icon">ce</h1>
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
         aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <div class="collapse navbar-collapse justify-content-right" id="navbarText">
+        <ul class="navbar-nav mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link {% if request.path == home_url %}active{% endif %}" aria-current="page" href="#">Home</a>
+            <a class="nav-link {% if request.path == home_url %}active highlighted{% endif %}" aria-current="page" href="{{ home_url }}">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {% if request.path == home_url %}active{%endif%}" aria-current="page" href="#">About</a>
-
-          <li class="nav-item">
-            <a class="nav-link {% if request.path == home_url %}active{% endif %}" aria-current="page"
-              href="#">Logout</a>
+            <a class="nav-link {% if request.path == about_url %}active highlighted{% endif %}" aria-current="page" href="{{ about_url }}">About</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {% if request.path == home_url %}active{% endif %}" aria-current="page"
-              href="#">Register</a>
+            <a class="nav-link" aria-current="page" href="#">Logout</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {% if request.path == home_url %}active{% endif %}" aria-current="page"
-              href="#">Login</a>
+            <a class="nav-link" aria-current="page" href="#">Register</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="#">Login</a>
           </li>
         </ul>
       </div>
@@ -66,7 +62,6 @@
   <main class="flex-shrink-0 main-bg">
     {% block content %}
     {% endblock %}
-    <!-- Conținutul principal al paginii -->
   </main>
 
   <!-- Footer -->
@@ -77,8 +72,12 @@
     {% endblock madeby %}
     <p class="m-0 text-center text-white">
       Follow me on:
-      <i class="fab fa-github ms-3"></i>
-      <i class="fab fa-linkedin ms-3"></i>
+      <a href="https://github.com/your-github-username" target="_blank" class="text-white">
+        <i class="fab fa-github ms-3"></i>
+      </a>
+      <a href="https://www.linkedin.com/in/your-linkedin-username" target="_blank" class="text-white">
+        <i class="fab fa-linkedin ms-3"></i>
+      </a>
     </p>
   </footer>
 
@@ -89,5 +88,4 @@
   {% endblock %}
 
 </body>
-
 </html>

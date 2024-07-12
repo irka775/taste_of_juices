@@ -22,8 +22,8 @@ from django.urls import path, include
 from juices_app import views as home_view
 
 urlpatterns = [
-    path("", home_view.home, name="home"),
     path("admin/", admin.site.urls),
+    path('', include('juices_app.urls')), 
 ]
 
 if settings.DEBUG:
