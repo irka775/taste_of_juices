@@ -106,9 +106,18 @@
     </div>
   </div>
 </div>
+<button id="demoButton">Arată formularul</button>
+<div id="commentForm" style="display: none;">
+    <h3>Lăsați un comentariu</h3>
+    <form>
+        <textarea id="commentText" rows="4" cols="50"></textarea><br>
+        <button type="button" onclick="submitComment()">Trimite comentariul</button>
+    </form>
+</div>
+
+<!-- Link către fișierul JavaScript -->
+<script src="{% static 'js/comments.js' %}"></script>
 
 {% endblock content %}
 
-{% block extras %}
-<script src="{% static 'js/comments.js' %}"></script>
-{% endblock %}
+

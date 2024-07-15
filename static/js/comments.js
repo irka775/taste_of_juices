@@ -28,3 +28,14 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 });
+
+document.getElementById('demoButton').addEventListener('click', function() {
+    var form = document.getElementById('commentForm');
+    form.style.display = 'block';  // Arată formularul
+});
+
+function submitComment() {
+    var comment = document.getElementById('commentText').value;
+    alert('Comentariu adăugat: ' + comment);
+    document.getElementById('commentText').value = '';  // Resetează câmpul de text
+}
