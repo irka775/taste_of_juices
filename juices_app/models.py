@@ -8,7 +8,7 @@ STATUS = ((0, "Pending"), (1, "Approved"))
 
 class JuiceRecipe(models.Model):
     title = models.CharField(max_length=200)  # Removed unique=True
-    slug = models.SlugField(max_length=200, unique=True,blank=False)
+    slug = models.SlugField(max_length=200, unique=True, blank=False)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="recipes")
     featured_image = CloudinaryField("image", default="placeholder")
     instructions = models.TextField(blank=False)
@@ -38,6 +38,7 @@ class Comment(models.Model):
     body = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     approved = models.BooleanField(default=True)
+    rating = models.IntegerField(default=0)  # Adăugat câmpul de rating
 
     class Meta:
         ordering = ["created_on"]
@@ -49,7 +50,7 @@ class Comment(models.Model):
 class Event(models.Model):
     title = models.CharField(max_length=200)
     date = models.DateTimeField()
-    location = models.CharField(max_length=200)
+    location = models.CharField(max_length=200)  # corectat
     description = models.TextField()
 
     def __str__(self):
@@ -60,7 +61,6 @@ class Review(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="reviews")
     reviewer = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reviews")
     rating = models.IntegerField()
-    comment = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

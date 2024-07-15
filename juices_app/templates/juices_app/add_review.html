@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>{{ event.title }}</h2>
+    <p><strong>Date:</strong> {{ event.date }}</p>
+    <p><strong>Location:</strong> {{ event.location }}</p>
+    <p>{{ event.description }}</p>
+
+    <hr>
+
+    <h3>Reviews:</h3>
+    <div class="card mb-4">
+        <div class="card-body">
+            {% for review in reviews %}
+            <div class="p-2 review">
+                <p class="font-weight-bold">
+                    {{ review.reviewer }} 
+                    <span class="font-weight-normal">{{ review.created_on }}</span> 
+                    rated:
+                    <span class="rating">
+                        {% for i in "12345" %}
+                        <i class="fa fa-star {% if i <= review.rating %}checked{% endif %}"></i>
+                        {% endfor %}
+                    </span>
+                </p>
+                {% if user.is_authenticated and review.reviewer == user %}
+                <button class="btn btn-delete" data-review-id="{{ review.id }}">Delete</button>
+                <button class="btn btn-edit" data-review-id="{{ review.id }}">Edit</button>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    {% if user.is_authenticated %}
+    <div class="card mb-4">
+        <div class="card-body">
+            <h3>Leave a review:</h3>
+            <p>Posting as: {{ user.username }}</p>
+            <form id="reviewForm" method="post" style="margin-top: 0.3em">
+                {{ form|crispy }}
+                {% csrf_token %}
+                <button id="submitButton" type="submit" class="btn btn-signup btn-lg" name="review_submit">Submit</button>
+            </form>
+        </div>
+    </div>
+    {% else %}
+    <p>Log in to leave a review</p>
+    {% endif %}
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const deleteModal = new bootstrap.Modal(document.getElementById("deleteModal"));
+        const deleteButtons = document.querySelectorAll(".btn-delete");
+        const deleteConfirm = document.getElementById("deleteConfirm");
+
+        for (let button of deleteButtons) {
+            button.addEventListener("click", (e) => {
+                let reviewId = e.target.getAttribute("data-review-id");
+                const slug = window.location.pathname.split('/')[2];
+                deleteConfirm.href = `/event/${slug}/delete_review/${reviewId}/`;
+                deleteModal.show();
+            });
+        }
+
+        const starInputs = document.querySelectorAll('.rating input[type="radio"]');
+        starInputs.forEach(input => {
+            input.addEventListener('change', function() {
+                const value = this.value;
+                starInputs.forEach(star => {
+                    if (star.value <= value) {
+                        star.nextElementSibling.classList.add('checked');
+                    } else {
+                        star.nextElementSibling.classList.remove('checked');
+                    }
+                });
+            });
+        });
+    });
+</script>
+
+<!-- Delete confirmation modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Delete review?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete your review? This action cannot be undone.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <a id="deleteConfirm" href="#" class="btn btn-danger">Delete</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

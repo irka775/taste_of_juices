@@ -1,24 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // editButtons.forEach(button => {
-    //     button.addEventListener("click", function() {
-    //         const commentId = this.getAttribute("data-comment-id");
-    //         const commentContent = document.getElementById(`comment${commentId}`).innerText.trim();
-    //         commentText.value = commentContent;
-    //         submitButton.innerText = "Update";
-    //         const slug = window.location.pathname.split('/')[1];
-    //         commentForm.setAttribute("action", `/${slug}/edit_comment/${commentId}/`);
-    //     });
-    // });
-
-    // deleteButtons.forEach(button => {
-    //     button.addEventListener("click", function() {
-    //         const commentId = this.getAttribute("data-comment-id");
-    //         const slug = window.location.pathname.split('/')[1];
-    //         deleteConfirm.href = `/${slug}/delete_comment/${commentId}/`;
-    //         deleteModal.show();
-    //     });
-    // });
-
     const editButtons = document.querySelectorAll(".btn-edit");
     const commentText = document.getElementById("id_body");
     const commentForm = document.getElementById("commentForm");
@@ -48,4 +28,17 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    const starInputs = document.querySelectorAll('.rating input[type="radio"]');
+    starInputs.forEach(input => {
+        input.addEventListener('change', function() {
+            const value = this.value;
+            starInputs.forEach(star => {
+                if (star.value <= value) {
+                    star.nextElementSibling.classList.add('checked');
+                } else {
+                    star.nextElementSibling.classList.remove('checked');
+                }
+            });
+        });
+    });
 });

@@ -1,5 +1,6 @@
 body {
-    background-color: #F9FAFC;
+    background-color: #17702d;
+    font-family: "Poppins", sans-serif;
 }
 
 .brand {
@@ -170,6 +171,6 @@ body {
     border-radius: 25px;
     padding: 5px;
 }
-
-
-
+.checked {
+    color: orange;
+  }

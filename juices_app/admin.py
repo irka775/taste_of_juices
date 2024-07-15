@@ -10,7 +10,7 @@ class JuiceAdmin(SummernoteModelAdmin):
     search_fields = ["title", "content"]
     list_filter = ("status", "author", "created_on")
     prepopulated_fields = {"slug": ("title",)}
-    summernote_fields ='__all__'
+    summernote_fields = '__all__'
 
     class Media:
         css = {"all": ("summernote/summernote-bs4.css",)}
@@ -18,7 +18,7 @@ class JuiceAdmin(SummernoteModelAdmin):
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ("author", "post", "created_on", "approved")
+    list_display = ("author", "post", "created_on", "approved", "rating")  # Adăugat "rating"
     search_fields = ["author__username", "body"]
     list_filter = ("approved", "created_on")
     actions = ["approve_comments"]
@@ -40,9 +40,5 @@ class EventAdmin(SummernoteModelAdmin):
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
     list_display = ("event", "reviewer", "rating", "created_on")
-    search_fields = ["reviewer__username", "comment"]
+    search_fields = ["reviewer__username"]
     list_filter = ("rating", "created_on")
-
-    class Media:
-        css = {"all": ("summernote/summernote-bs4.css",)}
-        js = ("summernote/summernote-bs4.js",)
