@@ -95,12 +95,12 @@ body {
 
 .post-link {
     text-decoration: none;
-    color: #445261;
+    color: #7d1f54;
 }
 
 .post-link:hover,
 .page-link {
-    color: #E84610;
+    color: #f4efed;
 }
 
 .post-title {

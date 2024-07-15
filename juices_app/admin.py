@@ -10,7 +10,7 @@ class JuiceAdmin(SummernoteModelAdmin):
     search_fields = ["title", "content"]
     list_filter = ("status", "author", "created_on")
     prepopulated_fields = {"slug": ("title",)}
-    summernote_fields = ("instructions", "ingredients", "content")
+    summernote_fields ='__all__'
 
     class Media:
         css = {"all": ("summernote/summernote-bs4.css",)}

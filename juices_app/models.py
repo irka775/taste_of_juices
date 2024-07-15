@@ -1,12 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.text import slugify
 from cloudinary.models import CloudinaryField
 
 STATUS = ((0, "Pending"), (1, "Approved"))
 
+
 class JuiceRecipe(models.Model):
     title = models.CharField(max_length=200)  # Removed unique=True
-    slug = models.SlugField(max_length=200, unique=True)
+    slug = models.SlugField(max_length=200, unique=True,blank=False)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="recipes")
     featured_image = CloudinaryField("image", default="placeholder")
     instructions = models.TextField(blank=False)
@@ -20,8 +22,18 @@ class JuiceRecipe(models.Model):
     def __str__(self):
         return f"{self.title} | written by {self.author}"
 
+    def save(self, *args, **kwargs):
+        if not self.slug and self.title:
+            # Crează un sumar al titlului
+            summary = self.title[:50]  # Sumarul va fi primele 50 de caractere din titlu
+            self.slug = slugify(summary)
+        super().save(*args, **kwargs)
+
+
 class Comment(models.Model):
-    post = models.ForeignKey(JuiceRecipe, on_delete=models.CASCADE, related_name="comments")
+    post = models.ForeignKey(
+        JuiceRecipe, on_delete=models.CASCADE, related_name="comments"
+    )
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="commenter")
     body = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
@@ -33,6 +45,7 @@ class Comment(models.Model):
     def __str__(self):
         return f"Comment {self.body} by {self.author}"
 
+
 class Event(models.Model):
     title = models.CharField(max_length=200)
     date = models.DateTimeField()
@@ -41,7 +54,8 @@ class Event(models.Model):
 
     def __str__(self):
         return self.title
-    
+
+
 class Review(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="reviews")
     reviewer = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reviews")
