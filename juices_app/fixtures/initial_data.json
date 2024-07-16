@@ -1,0 +1,53 @@
+[
+    {
+      "model": "juices_app.juicerecipe",
+      "pk": 1,
+      "fields": {
+        "title": "Strawberry Smoothie",
+        "slug": "strawberry-smoothie",
+        "author": 1,  
+        "featured_image": "image/upload/v1234567890/strawberry_smoothie.jpg",
+        "instructions": "Blend all ingredients until smooth.",
+        "ingredients": "Strawberries, Banana, Yogurt, Honey",
+        "created_on": "2024-07-14T14:00:00Z",
+        "status": 1
+      }
+    },
+    {
+      "model": "juices_app.juicerecipe",
+      "pk": 2,
+      "fields": {
+        "title": "Green Detox Juice",
+        "slug": "green-detox-juice",
+        "author": 1, 
+        "featured_image": "image/upload/v1234567890/green_detox_juice.jpg",
+        "instructions": "Juice all ingredients together.",
+        "ingredients": "Kale, Spinach, Green Apple, Lemon",
+        "created_on": "2024-07-14T15:00:00Z",
+        "status": 1
+      }
+    },
+    {
+      "model": "juices_app.comment",
+      "pk": 1,
+      "fields": {
+        "post": 1, 
+        "author": 1,  
+        "body": "This smoothie is amazing!",
+        "created_on": "2024-07-14T16:00:00Z",
+        "approved": true
+      }
+    },
+    {
+      "model": "juices_app.comment",
+      "pk": 2,
+      "fields": {
+        "post": 2, 
+        "author": 1,  
+        "body": "Loved this detox juice!",
+        "created_on": "2024-07-14T17:00:00Z",
+        "approved": true
+      }
+    }
+  ]
+  
