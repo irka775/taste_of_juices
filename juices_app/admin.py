@@ -1,7 +1,8 @@
 from django.contrib import admin
-from .models import Comment, JuiceRecipe, Event, Review
+from .models import Comment, JuiceRecipe, Review
 from .forms import JuiceRecipeForm
 from django_summernote.admin import SummernoteModelAdmin
+
 
 @admin.register(JuiceRecipe)
 class JuiceAdmin(SummernoteModelAdmin):
@@ -10,15 +11,22 @@ class JuiceAdmin(SummernoteModelAdmin):
     search_fields = ["title", "content"]
     list_filter = ("status", "author", "created_on")
     prepopulated_fields = {"slug": ("title",)}
-    summernote_fields = '__all__'
+    summernote_fields = "__all__"
 
     class Media:
         css = {"all": ("summernote/summernote-bs4.css",)}
         js = ("summernote/summernote-bs4.js",)
 
+
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ("author", "post", "created_on", "approved", "rating")  # Adăugat "rating"
+    list_display = (
+        "author",
+        "post",
+        "created_on",
+        "approved",
+        "rating",
+    )  # Adăugat "rating"
     search_fields = ["author__username", "body"]
     list_filter = ("approved", "created_on")
     actions = ["approve_comments"]
@@ -26,19 +34,9 @@ class CommentAdmin(admin.ModelAdmin):
     def approve_comments(self, request, queryset):
         queryset.update(approved=True)
 
-@admin.register(Event)
-class EventAdmin(SummernoteModelAdmin):
-    list_display = ("title", "date", "location")
-    search_fields = ["title", "description"]
-    list_filter = ("date", "location")
-    summernote_fields = ("description",)
-
-    class Media:
-        css = {"all": ("summernote/summernote-bs4.css",)}
-        js = ("summernote/summernote-bs4.js",)
 
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
-    list_display = ("event", "reviewer", "rating", "created_on")
+    list_display = ("reviewer", "rating", "created_on")
     search_fields = ["reviewer__username"]
     list_filter = ("rating", "created_on")

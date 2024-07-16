@@ -2,16 +2,25 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
+<!-- ======================================================================-->
+
 {% block content %}
 <div class="masthead">
   <div class="container">
     <div class="row g-0">
       <div class="col-md-6 masthead-text">
-        <h1 class="post-title">Title: {{ juice.title }}</h1>
+        <h1 class="post-title">{{ juice.title }}</h1>
         <p class="post-subtitle">
-          Author: {{ juice.author }} <br />
-          Date: {{ juice.created_on }}
+          Created by: <b>{{ juice.author }} </b><br />
+          Date: {{ juice.created_on }}<br />
+          Average Rating: {% if average_rating %}
+          {{ average_rating }}
+          {% else %}
+          No rating available
+          {% endif %}
         </p>
+
+
       </div>
       <div class="d-none d-md-block col-md-6 masthead-image">
         {% if "placeholder" in juice.featured_image.url %}
@@ -24,12 +33,16 @@
   </div>
 </div>
 
+<!-- ======================================================================-->
+
 <div class="container">
   <div class="row">
     <div class="col card mb-4 mt-3 left top">
       <div class="card-body">
-        <p class="card-text">{{ juice.instructions | safe }}</p>
-        <p class="card-text">{{ juice.ingredients | safe }}</p>
+        <p class="card-text">
+        <h3>Ingredients</h3>{{ juice.ingredients | safe }}</p>
+        <p class="card-text">
+        <h3>Instructions: <br></h3>{{ juice.instructions | safe }}</p>
         <div class="row">
           <div class="col-12">
             <strong class="text-secondary">
@@ -41,25 +54,35 @@
           </div>
         </div>
         <div class="row">
+
+          <!-- ======================================================================-->
+
           <div class="col-md-8 card mb-4 mt-3">
+
+
             <h3>Comments:</h3>
             <div class="card-body">
               {% for comment in comments %}
               <div
                 class="p-2 comments {% if not comment.approved and comment.author == user %} faded{% elif not comment.approved %} d-none{% endif %}">
                 <p class="font-weight-bold">
-                  {{ comment.author }}
-                  <span class="font-weight-normal">{{ comment.created_on }}</span>
-                  wrote:
+                  By: {{ comment.author }} <br>
+                  <span class="font-weight-normal">Date: {{ comment.created_on }}</span>
                 </p>
                 <div id="comment{{ comment.id }}">
                   {{ comment.body | linebreaks }}
                 </div>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star"></span>
-                <span class="fa fa-star"></span>
+                <div class="rating" data-comment-id="{{ comment.id }}">
+                  {% for i in rating_range %}
+                  <span class="fa fa-star {% if comment.rating >= i %}checked{% endif %}"></span>
+
+                  {% endfor %}
+                  <span class="average-rating">({{ comment.rating }})</span>
+                </div>
+
+                {% if user.is_authenticated %}
+
+                {% endif %}
                 {% if not comment.approved and comment.author == user %}
                 <p class="approval">This comment is awaiting approval</p>
                 {% endif %}
@@ -68,9 +91,14 @@
                 <button class="btn btn-edit" data-comment-id="{{ comment.id }}">Edit</button>
                 {% endif %}
               </div>
+              <hr>
+
               {% endfor %}
             </div>
           </div>
+
+          <!-- ======================================================================-->
+
           <div class="col-md-4 card mb-4 mt-3">
             <div class="card-body">
               {% if user.is_authenticated %}
@@ -88,11 +116,16 @@
               {% endif %}
             </div>
           </div>
+
+          <!-- ======================================================================-->
+
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<!-- ======================================================================-->
 
 <!-- Delete confirmation modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
@@ -112,6 +145,13 @@
     </div>
   </div>
 </div>
+
+<!-- ======================================================================-->
+
 <script src="{% static 'js/comments.js' %}"></script>
 
+<!-- ======================================================================-->
+
 {% endblock content %}
+
+<!-- ======================================================================-->

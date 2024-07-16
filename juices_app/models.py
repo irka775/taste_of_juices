@@ -1,9 +1,14 @@
+# =============================================================================
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.text import slugify
 from cloudinary.models import CloudinaryField
 
+# =============================================================================
+
 STATUS = ((0, "Pending"), (1, "Approved"))
+
+# =============================================================================
 
 
 class JuiceRecipe(models.Model):
@@ -22,12 +27,8 @@ class JuiceRecipe(models.Model):
     def __str__(self):
         return f"{self.title} | written by {self.author}"
 
-    def save(self, *args, **kwargs):
-        if not self.slug and self.title:
-            # Crează un sumar al titlului
-            summary = self.title[:50]  # Sumarul va fi primele 50 de caractere din titlu
-            self.slug = slugify(summary)
-        super().save(*args, **kwargs)
+
+# =============================================================================
 
 
 class Comment(models.Model):
@@ -47,21 +48,30 @@ class Comment(models.Model):
         return f"Comment {self.body} by {self.author}"
 
 
-class Event(models.Model):
-    title = models.CharField(max_length=200)
-    date = models.DateTimeField()
-    location = models.CharField(max_length=200)  # corectat
-    description = models.TextField()
+# =============================================================================
 
-    def __str__(self):
-        return self.title
+
+# class Event(models.Model):
+#     title = models.CharField(max_length=200)
+#     date = models.DateTimeField()
+#     location = models.CharField(max_length=200)  # corectat
+#     description = models.TextField()
+
+#     def __str__(self):
+#         return self.title
+
+
+# =============================================================================
 
 
 class Review(models.Model):
-    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="reviews")
+    # event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="reviews")
     reviewer = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reviews")
     rating = models.IntegerField()
     created_on = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"Review by {self.reviewer} for {self.event}"
+
+
+# =============================================================================

@@ -156,11 +156,11 @@ body {
 }
 
 .faded {
-    color: rgb(172, 175, 175);
+    color: rgb(30, 121, 121);
 }
 
 .approval {
-    color: rgb(222, 146, 168);
+    color: rgb(192, 26, 76);
 }
 
 .nav-link.highlighted {
@@ -172,5 +172,5 @@ body {
     padding: 5px;
 }
 .checked {
-    color: orange;
+    color: rgb(233, 199, 138);
   }

@@ -1,10 +1,13 @@
 from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.views import generic
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
-from .models import JuiceRecipe, Comment, Event, Review
+from django.db.models import Avg
+from .models import JuiceRecipe, Comment, Review
 from .forms import CommentForm, ReviewForm
 from django.contrib.auth.decorators import login_required
+import json
 
 
 class JuicesList(generic.ListView):
@@ -18,7 +21,9 @@ def juice_detail(request, slug):
     juice = get_object_or_404(queryset, slug=slug)
     comments = juice.comments.all().order_by("-created_on")
     comment_count = juice.comments.filter(approved=True).count()
+    average_rating = comments.aggregate(Avg("rating"))["rating__avg"] or 0
     new_comment = None
+    rating_range = range(1, 6)  # Adăugăm această linie pentru a crea o listă de valori
 
     if request.method == "POST":
         comment_form = CommentForm(data=request.POST)
@@ -42,6 +47,8 @@ def juice_detail(request, slug):
             "comments": comments,
             "comment_count": comment_count,
             "comment_form": comment_form,
+            "average_rating": round(average_rating, 2),
+            "rating_range": rating_range,  # Adăugăm lista în context
         },
     )
 
@@ -129,21 +136,47 @@ def about(request):
 
 @login_required
 def add_review(request, event_id):
-    event = get_object_or_404(Event, id=event_id)
+    # event = get_object_or_404(Event, id=event_id)
     if request.method == "POST":
         form = ReviewForm(request.POST)
         if form.is_valid():
             review = form.save(commit=False)
-            review.event = event
+            # review.event = event
             review.reviewer = request.user
             review.save()
-            return redirect("event_detail", event_id=event.id)
+            return redirect("event_detail")
     else:
         form = ReviewForm()
-    return render(request, "juices_app/add_review.html", {"form": form, "event": event})
+    return render(
+        request,
+        "juices_app/add_review.html",
+        {
+            "form": form,
+        },
+    )
 
 
-def event_detail(request, event_id):
-    event = get_object_or_404(Event, id=event_id)
-    reviews = Review.objects.filter(event=event)
-    return render(request, "juices_app/event_details.html", {"event": event, "reviews": reviews})
+@csrf_exempt
+@login_required
+def rate_comment(request, comment_id):
+    if request.method == "POST":
+        try:
+            comment = Comment.objects.get(id=comment_id, author=request.user)
+            data = json.loads(request.body)
+            rating = data.get("rating")
+            if rating:
+                comment.rating = rating
+                comment.save()
+
+                average_rating = Comment.objects.filter(
+                    juice=comment.juice, approved=True
+                ).aggregate(Avg("rating"))["rating__avg"]
+                return JsonResponse({"success": True, "average_rating": average_rating})
+        except Comment.DoesNotExist:
+            return JsonResponse(
+                {
+                    "success": False,
+                    "error": "Comment not found or you are not the author.",
+                }
+            )
+    return JsonResponse({"success": False, "error": "Invalid request."})
