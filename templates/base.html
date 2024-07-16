@@ -32,7 +32,7 @@
 <body class="d-flex flex-column h-100 main-bg">
 
   <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-white">
+  <nav class="navbar navbar-expand-lg navbar-light ">
     <div class="container-fluid nav-bg">
       <a class="navbar-brand" href="{{ home_url }}">
         <h1 class="brand">Taste of Ju<img src="{% static 'images/glass_of_juice.ico' %}" alt="Juice Icon">ce</h1>
@@ -44,11 +44,11 @@
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link {% if request.path == home_url %}active highlighted{% endif %}" aria-current="page"
+            <a class="nav-link {% if request.path == home_url %}active  {% endif %}" aria-current="page"
               href="{{ home_url }}">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {% if request.path == about_url %}active highlighted{% endif %}" aria-current="page"
+            <a class="nav-link {% if request.path == about_url %}active {% endif %}" aria-current="page"
               href="{{ about_url }}">About</a>
           </li>
         </ul>

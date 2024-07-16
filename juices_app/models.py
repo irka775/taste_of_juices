@@ -51,19 +51,6 @@ class Comment(models.Model):
 # =============================================================================
 
 
-# class Event(models.Model):
-#     title = models.CharField(max_length=200)
-#     date = models.DateTimeField()
-#     location = models.CharField(max_length=200)  # corectat
-#     description = models.TextField()
-
-#     def __str__(self):
-#         return self.title
-
-
-# =============================================================================
-
-
 class Review(models.Model):
     # event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="reviews")
     reviewer = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reviews")

@@ -1,5 +1,22 @@
 {% extends "base.html" %}
-{% block title %}About - Taste Of Juices{% endblock %}
+{% load static %}
 {% block content %}
-  <h1>About Page</h1>
+
+<div class="container d-flex flex-column h-100 main-bg">
+  <h1>About Us</h1>
+  <p>Welcome to our website! Here we share the best juice recipes for you to try and enjoy. Our mission is to provide a
+    wide variety of delicious and healthy juice recipes that you can easily make at home.</p>
+  <p>Our team is passionate about juicing and we love experimenting with different ingredients to create unique and
+    tasty combinations. We hope you find our recipes inspiring and we encourage you to share your own juice creations
+    with us!</p>
+  <p>Thank you for visiting our site, and happy juicing!</p>
+
+  <div class="container">
+    <div class="row">
+        <div class="col-12 col-md-12 col-lg-12">
+            <img src="../../../static/images/main_photo.jpg" class="img-fluid" alt="Responsive image">
+        </div>
+    </div>
+</div>
+
 {% endblock %}
