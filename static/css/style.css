@@ -76,6 +76,7 @@ main {
     border: none;
 }
 
+
 /* Relative positioning for image containers */
 .image-container {
     position: relative;
@@ -114,7 +115,7 @@ main {
 }
 
 .masthead-text {
-    background-color: #aca6a6;
+    background-color: #8b8484;
     color: white;
     position: relative;
 }

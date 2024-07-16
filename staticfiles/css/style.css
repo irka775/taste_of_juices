@@ -1,17 +1,54 @@
+/* Importing Google fonts for the website */
 @import url('https://fonts.googleapis.com/css?family=Merienda+One|Open+Sans&display=swap');
 
-body {
-    background-color: #17702d;
-    font-family:  "Merienda One", sans-serif;
+/* Universal box model settings, helps with consistent rendering */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Ensures padding and border are included in width/height calculations */
 }
 
+/* Full height for html to enable flexible container growth */
+html {
+    height: 100%;
+}
+
+/* Styling for the body, setting typography and background */
+body {
+    font-family: "Merienda One", sans-serif;
+    height: 100%;
+    font-size: 17px;
+    font-weight: 450;
+    color: #3a3a3a;
+    background-color: #F9FAFC;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Ensures main content stretches flexibly */
+main {
+    flex: 1 0 auto;
+}
+
+/* Background styling for a specific section with adjusted image settings */
+.about_background {
+    background-image: url("../images/main_photo.jpg");
+    background-size: contain; /* Ensures image fits within the container */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent tiling of the image */
+    padding: 300px; /* Generous padding to push internal content */
+    color: white; /* Ensuring readability over darker images */
+}
+
+/* Typography and color settings for branding */
 .brand {
-    font-family:  "Merienda One", sans-serif;
+    font-family: "Merienda One", sans-serif;
     font-size: 2.8rem;
     font-weight: 700;
     color: #FFFFFF;
 }
 
+/* Specific color style for elements */
 .red-o {
     color: #E84610;
 }
@@ -19,30 +56,33 @@ body {
 .thin {
     font-weight: 300;
 }
-.nav-bg {
+
+/* Background colors for different sections or components */
+.nav-bg, .dark-bg {
     background-color: #6BCB77;
-}
-.light-bg {
-    background-color: #fff;
 }
 
-.dark-bg {
-    background-color: #6BCB77;
+.light-bg {
+    background-color: #fff;
 }
 
 .main-bg {
     background-color: #FFF5F5;
 }
 
+/* Card styling with transparency */
 .card {
-    border: none;
     background-color: transparent;
+    border: none;
 }
 
+
+/* Relative positioning for image containers */
 .image-container {
     position: relative;
 }
 
+/* Specific image overlay with custom dimensions */
 .image-flash {
     position: absolute;
     bottom: 5%;
@@ -51,17 +91,20 @@ body {
     background-color: #188181;
 }
 
+/* Utility classes for scaling images */
 .scale {
     width: 100%;
     height: auto;
 }
 
+/* Uppercase text for author names, enhances visibility */
 .author {
     color: white;
     margin: 2px;
     text-transform: uppercase;
 }
 
+/* Masthead styling for featured areas */
 .masthead {
     margin-top: 10px;
     overflow: hidden;
@@ -72,77 +115,47 @@ body {
 }
 
 .masthead-text {
-    background-color: #FFFFFF;
+    background-color: #8b8484;
     color: white;
     position: relative;
 }
 
-.masthead-image {
-    position: relative;
-    overflow: hidden;
-}
 
-.masthead-image:after {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 90%;
-    height: 100%;
-    width: 150%;
-    background: #FF5252;
-    -webkit-transform: skew(15deg);
-    -moz-transform: skew(15deg);
-    transform: skew(15deg);
-    z-index: 100;
-}
 
-.post-link {
+/* Link styling with hover effects for better user interaction */
+.post-link, .page-link, .link {
     text-decoration: none;
     color: #7d1f54;
 }
 
-.post-link:hover,
-.page-link {
+.post-link:hover, .page-link:hover, .link:hover {
     color: #424242;
+    text-decoration: underline;
 }
 
-.post-title {
-    margin-top: 10%;
-    margin-left: 5%;
+.link:active {
+    color: #445261;
 }
 
-.post-subtitle {
-    margin-left: 5%;
-    color: #424242;
-}
-
-.btn-signup,
-.btn-edit {
+/* Button styles with hover and active states */
+.btn-signup, .btn-edit {
     background-color: #42A5F5;
     color: #fff;
 }
 
-.btn-signup:hover,
-.btn-signup:active {
+.btn-signup:hover, .btn-signup:active {
     background-color: #fff;
     color: #23BBBB;
 }
 
-.link {
-    color: #23BBBB;
-    text-decoration: none;
-}
-
-.link:hover,
-.link:active {
-    color: #445261;
-    text-decoration: underline;
-}
-
 .btn-like {
     color: #FFA726;
-    border: none;
     background: transparent;
+    border: none;
+}
+
+.btn-like:hover, .btn-like:active {
+    color: #E84610;
 }
 
 .btn-delete {
@@ -150,13 +163,7 @@ body {
     background: #E84610;
 }
 
-.btn-like:hover,
-.btn-like:active {
-    color: #E84610;
-    background: transparent;
-    border: none;
-}
-
+/* Additional color styles for text elements */
 .faded {
     color: rgb(30, 121, 121);
 }
@@ -165,14 +172,12 @@ body {
     color: rgb(192, 26, 76);
 }
 
-.nav-link.highlighted {
-    background-color: #FFEB3B;
-    color: #000;
-    font-weight: bold;
-    font-size: 1.5em;
-    border-radius: 25px;
-    padding: 5px;
-}
 .checked {
     color: rgb(233, 199, 138);
-  }
+}
+
+/* Navbar styling adjusted */
+.navbar {
+    margin: 0;
+    padding: 0;
+}
