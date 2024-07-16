@@ -13,7 +13,7 @@ import json
 class JuicesList(generic.ListView):
     queryset = JuiceRecipe.objects.filter(status=1)
     template_name = "juices_app/home.html"
-    paginate_by = 4
+    paginate_by = 6
 
 
 def juice_detail(request, slug):
