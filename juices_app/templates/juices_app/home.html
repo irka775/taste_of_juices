@@ -14,18 +14,21 @@
                     <div class="card mb-4">
                         <div class="card-body">
                             <div class="image-container">
+                                <a href="{% url 'juice_detail' juice.slug %}" class="post-link">
                                 {% if "placeholder" in juice.featured_image.url %}
-                                <img class="card-img-top" src="{% static 'images/main_photo.jpg' %}" alt="placeholder image">
-                                {% else %}
-                                <img class="card-img-top" src="{{ juice.featured_image.url }}" alt="{{ juice.title }}">
-                                {% endif %}
-                                <div class="image-flash">
-                                    <p class="author">Author: {{ juice.author }}</p>
-                                </div>
+
+                                    <img class="card-img-top" src="{% static 'images/main_photo.jpg' %}"
+                                        alt="placeholder image">
+                                    {% else %}
+                                    <img class="card-img-top" src="{{ juice.featured_image.url }}"
+                                        alt="{{ juice.title }}">
+                                    {% endif %}
+                                    <div class="image-flash">
+                                        <p class="author">Author: {{ juice.author }}</p>
+                                    </div>
                             </div>
-                            <a href="{% url 'juice_detail' juice.slug %}" class="post-link">
-                                <h2 class="card-title">{{ juice.title }}</h2>
-                                <p class="card-text">{{ juice.excerpt }}</p>
+                            <h2 class="card-title">{{ juice.title }}</h2>
+                            <p class="card-text">{{ juice.excerpt }}</p>
                             </a>
                             <p class="card-text text-muted h6">{{ juice.created_on}}</p>
                             <hr>

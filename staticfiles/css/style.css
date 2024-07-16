@@ -30,15 +30,6 @@ main {
     flex: 1 0 auto;
 }
 
-/* Background styling for a specific section with adjusted image settings */
-.about_background {
-    background-image: url("../images/main_photo.jpg");
-    background-size: contain; /* Ensures image fits within the container */
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Prevent tiling of the image */
-    padding: 300px; /* Generous padding to push internal content */
-    color: white; /* Ensuring readability over darker images */
-}
 
 /* Typography and color settings for branding */
 .brand {

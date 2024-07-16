@@ -5,7 +5,7 @@
 <!-- ======================================================================-->
 
 {% block content %}
-<div class="masthead col-4 col-md-6 col-lg-12">
+<div class="masthead ">
   <div class="container">
     <div class="row g-0">
       <div class="col-md-6 masthead-text">
@@ -22,11 +22,12 @@
 
 
       </div>
-      <div class="d-none d-md-block col-md-6 masthead-image">
+      <div class="d-none d-md-block col-md-6 masthead-image ">
         {% if "placeholder" in juice.featured_image.url %}
-        <img src="{% static 'images/default.jpg' %}" class="scale" alt="placeholder image">
+        <img  src="{% static 'images/default.jpg' %}" class="scale"
+          alt="placeholder image">
         {% else %}
-        <img src="{{ juice.featured_image.url }}" class="scale" alt="{{ juice.title }}">
+        <img  src="{{ juice.featured_image.url }}" class="scale" alt="{{ juice.title }}">
         {% endif %}
       </div>
     </div>
