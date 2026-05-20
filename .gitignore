@@ -22,3 +22,6 @@ staticfiles/
 venv/
 __pycache__/
 *.pyc
+.vscode/
+cloudinary_python.txt
+*.sqlite3
